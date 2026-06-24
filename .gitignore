@@ -1,0 +1,12 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# MediaPipe model
+hand_landmarker.task
+
+# VS Code
+.vscode/
