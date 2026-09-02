@@ -30,7 +30,7 @@ def draw_landmarks(image, landmarks):
             x = int(landmark.x * image.shape[1])
             y = int(landmark.y * image.shape[0])
             points.append((x, y))
-            cv2.circle(image, (x, y), 5, (0, 255, 0), -1)
+            cv2.circle(image, (x, y), 5, (0, 0, 0), -1)
 
         connections = [
             (0, 1), (1, 2), (2, 3), (3, 4),
@@ -41,21 +41,21 @@ def draw_landmarks(image, landmarks):
             (5, 9), (9, 13), (13, 17),
         ]
         for start, end in connections:
-            cv2.line(image, points[start], points[end], (255, 0, 0), 2)
+            cv2.line(image, points[start], points[end], (0, 0, 0), 2)
 
 
 def draw_volume_bar(image, scalar):
     bar_x, bar_y = 20, 60
     bar_width, bar_height = 250, 25
     cv2.rectangle(image, (bar_x, bar_y), (bar_x + bar_width, bar_y + bar_height), (50, 50, 50), 2)
-    cv2.rectangle(image, (bar_x, bar_y), (bar_x + int(bar_width * scalar), bar_y + bar_height), (0, 255, 0), -1)
+    cv2.rectangle(image, (bar_x, bar_y), (bar_x + int(bar_width * scalar), bar_y + bar_height), (0, 0, 0), -1)
     cv2.putText(
         image,
         f"Volume: {int(scalar * 100)}%",
         (bar_x, bar_y - 10),
         cv2.FONT_HERSHEY_SIMPLEX,
         0.7,
-        (255, 255, 255),
+        (0, 0, 0),
         2,
     )
 
@@ -94,9 +94,11 @@ def main():
             x2 = int(index.x * image.shape[1])
             y2 = int(index.y * image.shape[0])
 
-            cv2.line(image, (x1, y1), (x2, y2), (0, 255, 255), 2)
-            cv2.circle(image, (x1, y1), 8, (0, 255, 255), -1)
-            cv2.circle(image, (x2, y2), 8, (0, 255, 255), -1)
+            # draw connecting line between thumb and index as light pink (BGR)
+            cv2.line(image, (x1, y1), (x2, y2), (203, 192, 255), 2)
+            # draw the landmark points as part of the black skeletal style
+            cv2.circle(image, (x1, y1), 8, (0, 0, 0), -1)
+            cv2.circle(image, (x2, y2), 8, (0, 0, 0), -1)
 
             distance = math.hypot(x2 - x1, y2 - y1)
             min_distance = 25
@@ -113,7 +115,7 @@ def main():
                 (20, 110),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 0.7,
-                (0, 255, 255),
+                (0, 0, 0),
                 2,
             )
         else:
@@ -123,7 +125,7 @@ def main():
                 (20, 40),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 0.7,
-                (0, 255, 255),
+                (0, 0, 0),
                 2,
             )
 
